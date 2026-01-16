@@ -1,11 +1,13 @@
 FROM node:18
-## Create app directory
+
 WORKDIR /usr/src/app
-## Install app dependencies
-## A wildcard is used to ensure both package.json AND package-lock.json are copied where available (npm@5+)
+
+# Install build tools for native modules
+RUN apt-get update && apt-get install -y python3 g++ make git && rm -rf /var/lib/apt/lists/*
+
 COPY package*.json ./
 RUN npm ci
-## Bundle app source
+
 COPY . .
 EXPOSE 8080
-CMD [ "npm", "run", "prod" ]
+CMD ["npm", "run", "prod"]
