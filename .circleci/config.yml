@@ -1,0 +1,45 @@
+version: 2.1
+
+jobs:
+  ci-to-replace-travis:
+    docker:
+      - image: cimg/base:current
+    working_directory: ~/project
+    steps:
+      - run:
+          name: "Say hello"
+          command: "echo Hello, World!"
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build and push Docker image - feed
+          command: |
+            cd udagram-api-feed
+            docker build -t karenht/udagram-api-feed:1.0.0 .            
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            docker push karenht/udagram-api-feed:1.0.0
+      - run:
+          name: Build and push Docker image - user
+          command: |
+            cd ../udagram-api-user
+            docker build -t karenht/udagram-api-user:1.0.0 .            
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            docker push karenht/udagram-api-user:1.0.0
+      - run:
+          name: Build and push Docker image - frontend
+          command: |
+            cd ../udagram-frontend
+            docker build -t karenht/udagram-frontend:1.0.0 .            
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            docker push karenht/udagram-frontend:1.0.0
+      - run:
+          name: Build and push Docker image - reverseproxy
+          command: |
+            cd ../udagram-reverseproxy
+            docker build -t karenht/udagram-reverseproxy:1.0.0 .            
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+            docker push karenht/udagram-reverseproxy:1.0.0
+workflows:
+  ci-to-replace-travis-workflow:
+    jobs:
+      - ci-to-replace-travis
