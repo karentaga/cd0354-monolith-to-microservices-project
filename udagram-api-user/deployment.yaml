@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-user-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-user
+  template:
+    metadata:
+      labels:
+        app: backend-user
+    spec:
+      containers:
+        - name: backend-user
+          image: karenht/udagram-api-user:v6
+          imagePullPolicy: Always              # <-- ensures latest image is pulled
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: udagram-env-config
+            - secretRef:
+                name: udagram-env-secret
+            - secretRef:
+                name: aws-secret

@@ -2,11 +2,15 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+// src/environments/environment.production.ts
 export const environment = {
   production: false,
   appName: 'Udagram',
+  // This should point to your reverse-proxy ELB (Nginx) for API requests
   apiHost: 'http://localhost:8080/api/v0'
 };
+
+
 
 /*
  * For easier debugging in development mode, you can import the following file

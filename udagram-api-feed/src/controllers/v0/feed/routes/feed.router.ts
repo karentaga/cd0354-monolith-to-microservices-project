@@ -29,15 +29,31 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
 
 // Get all feed items
 router.get('/', async (req: Request, res: Response) => {
-  const items = await FeedItem.findAndCountAll({order: [['id', 'DESC']]});
-  // Map items to include signed URLs
-  const itemsWithUrls = await Promise.all(items.rows.map(async (item) => {
-    if (item.url) {
-      item.url = await AWS.getGetSignedUrl(item.url);
-    }
-    return item;
-  }));
-  res.send({count: items.count, rows: itemsWithUrls});
+  try {
+    const items = await FeedItem.findAndCountAll({ order: [['id', 'DESC']] });
+
+    // Map items to include signed URLs
+    const itemsWithUrls = await Promise.all(
+      items.rows.map(async (item) => {
+        if (item.url) {
+          try {
+            item.url = await AWS.getGetSignedUrl(item.url);
+            console.log(`Success to get signed URL for ${item.url}:`);
+          } catch (err) {
+            console.error(`Failed to get signed URL for ${item.url}:`, err);
+            // Optionally, keep original URL if signed URL fails
+            item.url = item.url;
+          }
+        }
+        return item;
+      })
+    );
+
+    res.status(200).send({ count: items.count, rows: itemsWithUrls });
+  } catch (err) {
+    console.error('Error fetching feed items:', err);
+    res.status(500).send({ message: 'Failed to fetch feed items' });
+  }
 });
 
 // Get a feed resource

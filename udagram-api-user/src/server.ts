@@ -16,9 +16,7 @@ import {V0_USER_MODELS} from './controllers/v0/model.index';
   await sequelize.sync();
 
   const app = express();
-  const port = process.env.PORT || 8080;
-
-  app.use(bodyParser.json());
+  const port = process.env.PORT ? parseInt(process.env.PORT) : 8080;
 
   // We set the CORS origin to * so that we don't need to
   // worry about the complexities of CORS this lesson. It's
@@ -30,9 +28,11 @@ import {V0_USER_MODELS} from './controllers/v0/model.index';
       'X-Access-Token', 'Authorization',
     ],
     methods: 'GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE',
-    preflightContinue: true,
+    preflightContinue: false,
     origin: '*',
   }));
+
+  app.use(bodyParser.json());
 
   app.use('/api/v0/', IndexRouter);
 
@@ -43,7 +43,7 @@ import {V0_USER_MODELS} from './controllers/v0/model.index';
 
 
   // Start the Server
-  app.listen( port, () => {
+  app.listen(port, () => {
     console.log( `server running ${config.url}` );
     console.log( `press CTRL+C to stop server` );
   } );

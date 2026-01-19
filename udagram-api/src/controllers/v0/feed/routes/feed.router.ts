@@ -29,14 +29,21 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
 
 // Get all feed items
 router.get('/', async (req: Request, res: Response) => {
+    console.log("api feed / ");
+      console.log(req);
   const items = await FeedItem.findAndCountAll({order: [['id', 'DESC']]});
+  console.log(items);
   // Map items to include signed URLs
   const itemsWithUrls = await Promise.all(items.rows.map(async (item) => {
+          console.log(item);
+
     if (item.url) {
       item.url = await AWS.getGetSignedUrl(item.url);
+      console.log(item.url);
     }
     return item;
   }));
+  console.log(items);
   res.send({count: items.count, rows: itemsWithUrls});
 });
 

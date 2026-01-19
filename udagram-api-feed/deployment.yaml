@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-feed-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend-feed
+  template:
+    metadata:
+      labels:
+        app: backend-feed
+    spec:
+      containers:
+        - name: backend-feed
+          image: karenht/udagram-api-feed:v9
+          imagePullPolicy: Always              # <-- ensures latest image is pulled
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: udagram-env-config
+            - secretRef:
+                name: udagram-env-secret
+            - secretRef:
+                name: aws-secret
