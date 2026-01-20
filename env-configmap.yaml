@@ -6,7 +6,7 @@ data:
   # AWS configuration
   AWS_REGION: us-east-1
   AWS_BUCKET: udagram-bucket-2365
-  URL: http://a7c43fff713d4440c8a4c1f76e49621f-538887260.us-east-1.elb.amazonaws.com:8100
+  URL: http://localhost:8100
   PORT: "8080"
 
   # JWT secret (non-confidential for example)

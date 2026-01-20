@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: backend-user
-          image: karenht/udagram-api-user:v6
+          image: karenht/udagram-api-user:1.0.0
           imagePullPolicy: Always              # <-- ensures latest image is pulled
           ports:
             - containerPort: 8080

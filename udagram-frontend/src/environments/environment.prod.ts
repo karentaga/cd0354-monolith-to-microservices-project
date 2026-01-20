@@ -4,10 +4,10 @@
 
 // src/environments/environment.production.ts
 export const environment = {
-  production: false,
+  production: true,
   appName: 'Udagram',
   // This should point to your reverse-proxy ELB (Nginx) for API requests
-  apiHost: 'http://localhost:8080/api/v0'
+  apiHost: 'http://a7cf53883000d489397fdb94f2bbe04d-853646326.us-east-1.elb.amazonaws.com:8080/api/v0'
 };
 
 
