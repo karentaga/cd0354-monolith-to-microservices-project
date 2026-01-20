@@ -25,3 +25,8 @@ spec:
                 name: udagram-env-secret
             - secretRef:
                 name: aws-secret
+          resources:
+            requests:
+              cpu: 250m
+            limits:
+              cpu: 500m
