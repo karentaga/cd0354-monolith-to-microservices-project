@@ -1,0 +1,153 @@
+PS C:\Users\karen\cd0354-monolith-to-microservices-project\udagram-frontend> kubectl describe services
+Name:                     backend-feed
+Namespace:                default
+Labels:                   <none>
+Annotations:              <none>
+Selector:                 app=backend-feed
+Type:                     ClusterIP
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.100.178.91
+IPs:                      10.100.178.91
+Port:                     <unset>  8080/TCP
+TargetPort:               8080/TCP
+Endpoints:                172.31.6.199:8080
+Session Affinity:         None
+Internal Traffic Policy:  Cluster
+Events:                   <none>
+
+
+Name:                     backend-user
+Namespace:                default
+Labels:                   <none>
+Annotations:              <none>
+Selector:                 app=backend-user
+Type:                     ClusterIP
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.100.248.212
+IPs:                      10.100.248.212
+Port:                     <unset>  8080/TCP
+TargetPort:               8080/TCP
+Endpoints:                172.31.13.150:8080
+Session Affinity:         None
+Internal Traffic Policy:  Cluster
+Events:                   <none>
+
+
+Name:                     frontend-service
+Namespace:                default
+Labels:                   <none>
+Annotations:              <none>
+Selector:                 app=frontend
+Type:                     LoadBalancer
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.100.114.128
+IPs:                      10.100.114.128
+LoadBalancer Ingress:     a1a23b6daae4d4e7e9d343a00d31978b-436248871.us-east-1.elb.amazonaws.com
+Port:                     <unset>  80/TCP
+TargetPort:               80/TCP
+NodePort:                 <unset>  30400/TCP
+Endpoints:                172.31.11.103:80
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Internal Traffic Policy:  Cluster
+Events:
+  Type    Reason                Age                   From                Message
+  ----    ------                ----                  ----                -------
+  Normal  EnsuringLoadBalancer  44m (x2 over 4h41m)   service-controller  Ensuring load balancer
+  Normal  EnsuredLoadBalancer   44m (x2 over 4h41m)   service-controller  Ensured load balancer
+  Normal  UpdatedLoadBalancer   43m (x12 over 4h31m)  service-controller  Updated load balancer with new hosts
+
+
+Name:                     kubernetes
+Namespace:                default
+Labels:                   component=apiserver
+                          provider=kubernetes
+Annotations:              <none>
+Selector:                 <none>
+Type:                     ClusterIP
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.100.0.1
+IPs:                      10.100.0.1
+Port:                     https  443/TCP
+TargetPort:               443/TCP
+Endpoints:                172.31.33.161:443,172.31.82.20:443
+Session Affinity:         None
+Internal Traffic Policy:  Cluster
+Events:                   <none>
+
+
+Name:                     publicfrontend
+Namespace:                default
+Labels:                   <none>
+Annotations:              <none>
+Selector:                 app=frontend
+Type:                     LoadBalancer
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.100.104.143
+IPs:                      10.100.104.143
+LoadBalancer Ingress:     a90e392b72e744f90b8ce2031dc87b8f-1208011238.us-east-1.elb.amazonaws.com
+Port:                     <unset>  80/TCP
+TargetPort:               80/TCP
+NodePort:                 <unset>  31268/TCP
+Endpoints:                172.31.11.103:80
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Internal Traffic Policy:  Cluster
+Events:
+  Type    Reason                Age   From                Message
+  ----    ------                ----  ----                -------
+  Normal  EnsuringLoadBalancer  39m   service-controller  Ensuring load balancer
+  Normal  EnsuredLoadBalancer   38m   service-controller  Ensured load balancer
+
+
+Name:                     publicreverseproxy
+Namespace:                default
+Labels:                   <none>
+Annotations:              <none>
+Selector:                 app=reverseproxy
+Type:                     LoadBalancer
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.100.159.207
+IPs:                      10.100.159.207
+LoadBalancer Ingress:     a7cf53883000d489397fdb94f2bbe04d-853646326.us-east-1.elb.amazonaws.com
+Port:                     <unset>  8080/TCP
+TargetPort:               8080/TCP
+NodePort:                 <unset>  30913/TCP
+Endpoints:                172.31.40.36:8080
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Internal Traffic Policy:  Cluster
+Events:
+  Type    Reason               Age                  From                Message
+  ----    ------               ----                 ----                -------
+  Normal  UpdatedLoadBalancer  43m (x8 over 3h48m)  service-controller  Updated load balancer with new hosts
+
+
+Name:                     reverseproxy-service
+Namespace:                default
+Labels:                   <none>
+Annotations:              <none>
+Selector:                 app=reverseproxy
+Type:                     LoadBalancer
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.100.154.79
+IPs:                      10.100.154.79
+LoadBalancer Ingress:     ac3b6a2d27ee4499080562db491bfe3e-1791672367.us-east-1.elb.amazonaws.com
+Port:                     <unset>  8080/TCP
+TargetPort:               8080/TCP
+NodePort:                 <unset>  31143/TCP
+Endpoints:                172.31.40.36:8080
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Internal Traffic Policy:  Cluster
+Events:
+  Type    Reason               Age                   From                Message
+  ----    ------               ----                  ----                -------
+  Normal  UpdatedLoadBalancer  43m (x10 over 4h31m)  service-controller  Updated load balancer with new hosts

@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: backend-feed-deployment
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: backend-feed
@@ -15,7 +15,7 @@ spec:
       containers:
         - name: backend-feed
           image: karenht/udagram-api-feed:1.0.0
-          imagePullPolicy: Always              # <-- ensures latest image is pulled
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           envFrom:
